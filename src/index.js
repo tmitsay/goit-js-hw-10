@@ -2,7 +2,7 @@ import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
-// import './style.css';
+import './style.css';
 
 const refs = {
   selectEl: document.querySelector('.breed-select'),
@@ -11,16 +11,19 @@ const refs = {
   catInfo: document.querySelector('.cat-info'),
 };
 const { selectEl, loader, errorEl, catInfo } = refs;
+
+loader.classList.replace('loader', 'is-hidden');
 errorEl.classList.add('is-hidden');
 catInfo.classList.add('is-hidden');
-loader.classList.replace('loader', 'is-hidden');
+
+console.dir(errorEl);
 
 updateSelect();
 
 function updateSelect(data) {
   fetchBreeds(data)
     .then(data => {
-      // loader.classList.replace('loader', 'is-hidden');
+      loader.classList.replace('loader', 'is-hidden');
 
       let createSelectEl = data.map(({ name, id }) => {
         return `<option value="${id}">${name}</option>`;
